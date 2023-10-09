@@ -1,0 +1,67 @@
+import "oaidl.idl";
+import "ocidl.idl";
+import "dxgi.idl";
+
+[uuid("CC94E919-0966-4646-92EC-F74AFE2AB6CB")]
+interface IFileMesh: IUnknown
+{
+};
+
+[uuid("5F9E1858-181B-4FC4-B66C-1576FE97F20A")]
+interface IFileAnimation: IUnknown
+{
+};
+
+[uuid("1083981E-C631-4A1B-B5A4-12BA2FEFFD15")]
+interface IMeshFile: IUnknown
+{
+	HRESULT GetNumOfMesh([out] UINT* pNumOfMesh);
+	HRESULT GetMesh([in] UINT index, [out] IFileMesh** ppMesh);
+	HRESULT GetNumOfAnimation([out] UINT* pNumOfAnimation);
+	HRESULT GetAnimation([in] UINT index, [out] IFileAnimation** ppAnimation);
+};
+
+[uuid("8C54E9F9-5CCA-4EB1-9F92-C6086BD7EE11")]
+interface ITextureFile: IUnknown
+{
+	HRESULT GetFormat([out] DXGI_FORMAT* pFormat);
+	HRESULT GetSize([out] UINT* pWidth, [out] UINT* pHeight);
+};
+
+[uuid("16D6C23B-423B-45CC-BB2D-ECA889E790D8")]
+interface IAssetManager: IUnknown
+{
+	HRESULT LoadMeshFileFromFile([in] const WCHAR* meshFilePath, [out] IMeshFile** ppMeshFile);
+	HRESULT LoadTextureFromFile([in] const WCHAR* textureFilePath, [out] ITextureFile** ppTextureFile);
+};
+
+[uuid("1AB5D7BD-279E-43C9-9941-09C4F33D6001"), object, local, pointer_default( unique )]
+interface IMeshRenderer: IUnknown
+{
+	HRESULT GetMesh([out] IMeshFile** pMesh);
+	HRESULT SetMesh([in] IMeshFile* pMesh);
+	UINT GetNumOfMaterial();
+	HRESULT SetMaterial([in] UINT materialId, [in] ITextureFile* pTexture);
+	HRESULT GetMaterial([in] UINT materialId, [out] ITextureFile** ppTexture);
+	HRESULT SetWorldMatrix([in] PVOID pMatrix);
+	HRESULT Realize();
+};
+
+[uuid("229F6A2D-45D1-4B21-A51A-13636181AC35")]
+interface IStaticMeshRenderer: IMeshRenderer
+{
+};
+
+[uuid("C8528400-E8AD-4B9B-8EF5-AFE6AF81ABE9")]
+interface ISkinningMeshRenderer: IMeshRenderer
+{
+};
+
+[uuid("67F42EE0-37DD-4347-9CBF-17EDBC75D2FC")]
+interface IGraphicsEngine: IUnknown
+{
+	HRESULT CreateSwapChain([in] HWND hWnd, [in] UINT width, [in] UINT height);
+	HRESULT GetAssetManager([out] IAssetManager** ppAssetManager);
+	HRESULT CreateStaticMeshRenderer([out] IStaticMeshRenderer** ppMeshRenderer);
+	HRESULT Render();
+};
