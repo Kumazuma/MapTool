@@ -24,6 +24,8 @@ private:
 	ComPtr<IDXGISwapChain4> m_swapChain;
 	ComPtr<ID3D12Device> m_device;
 	ComPtr<ID3D12CommandQueue> m_queue;
+	ComPtr<ID3D12GraphicsCommandList> m_cmdList;
+	ComPtr<ID3D12CommandAllocator> m_cmdAllocator;
 	ComPtr<ID3D12Fence> m_fence;
 	HANDLE m_hEvent;
 	uint64_t m_latestFenceValue;

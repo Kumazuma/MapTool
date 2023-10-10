@@ -65,6 +65,20 @@ HRESULT GraphicsEngineD3D12::Initialize()
 		return E_FAIL;
 	}
 
+	hr = m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, __uuidof(ID3D12CommandAllocator), &m_cmdAllocator);
+	assert(SUCCEEDED(hr));
+	if(FAILED(hr))
+	{
+		return E_FAIL;
+	}
+
+	hr = m_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, m_cmdAllocator.Get(), nullptr, __uuidof(ID3D12GraphicsCommandList), &m_cmdList);
+	assert(SUCCEEDED(hr));
+	if(FAILED(hr))
+	{
+		return E_FAIL;
+	}
+
 	for(auto& it: m_descriptorSizeTable)
 	{
 		it = m_device->GetDescriptorHandleIncrementSize((D3D12_DESCRIPTOR_HEAP_TYPE)(&it - m_descriptorSizeTable));
@@ -151,7 +165,44 @@ HRESULT GraphicsEngineD3D12::GetAssetManager(IAssetManager** ppAssetManager)
 
 HRESULT GraphicsEngineD3D12::Render()
 {
-	return E_NOTIMPL;
+	HRESULT hr = S_OK;
+	m_cmdAllocator->Reset();
+	// TODO: Not implemented yet!
+	// m_cmdList->Reset(m_cmdAllocator.Get(), m_pipeline.Get());
+	uint32_t frameIndex = m_swapChain->GetCurrentBackBufferIndex();
+	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(m_descHeapSwapChainRtvs->GetCPUDescriptorHandleForHeapStart(), frameIndex, m_descriptorSizeTable[D3D12_DESCRIPTOR_HEAP_TYPE_RTV]);
+	// Indicate that the back buffer will be used as a render target.
+	auto beginPaintBarrier = CD3DX12_RESOURCE_BARRIER::Transition(m_backBufferArr[frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	CD3DX12_VIEWPORT rect{0.f, 0.f, 1920.f, 1080.f};
+	CD3DX12_RECT scissorRect{0, 0, 1920, 1080};
+	m_cmdList->ResourceBarrier(1, &beginPaintBarrier);
+	D3D12_CPU_DESCRIPTOR_HANDLE dtvHandle = m_descHeapDsv->GetCPUDescriptorHandleForHeapStart();
+	m_cmdList->OMSetRenderTargets(1, &rtvHandle, FALSE, &dtvHandle);
+	m_cmdList->OMSetStencilRef(0x00);
+	m_cmdList->RSSetViewports(1, &rect);
+	m_cmdList->RSSetScissorRects(1, &scissorRect);
+	// Record commands.
+	const float clearColor[] = { 0.5f, 0.5f, 1.0f, 1.0f };
+	m_cmdList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+	m_cmdList->ClearDepthStencilView(dtvHandle, D3D12_CLEAR_FLAG_DEPTH, 1.f, 0, 0, nullptr);
+	m_cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	auto endPaintBarrier= CD3DX12_RESOURCE_BARRIER::Transition(m_backBufferArr[frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	m_cmdList->ResourceBarrier(1, &endPaintBarrier);
+	m_cmdList->Close();
+	ID3D12CommandList* cmdLists[] {m_cmdList.Get()};
+	m_queue->ExecuteCommandLists(1, cmdLists);
+	m_swapChain->Present(1, 0);
+	m_latestFenceValue += 1;
+	m_queue->Signal(m_fence.Get(), m_latestFenceValue);
+	// Wait until the previous frame is finished.
+	if (m_fence->GetCompletedValue() < m_latestFenceValue)
+	{
+		m_fence->SetEventOnCompletion(m_latestFenceValue, m_hEvent);
+		WaitForSingleObject(m_hEvent, INFINITE);
+	}
+
+	return hr;
 }
 
 HRESULT GraphicsEngineD3D12::CreateStaticMeshRenderer(IStaticMeshRenderer** ppMeshRenderer)
