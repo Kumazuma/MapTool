@@ -1,4 +1,5 @@
 #include "MapTool.h"
+#include <rpc.h>
 
 bool MapToolApp::OnInit()
 {
@@ -13,6 +14,19 @@ bool MapToolApp::OnInit()
 	CreateGraphicsEngine(&m_graphicsEngine);
 	m_graphicsEngine->CreateSwapChain(pPanel->GetHWND(), 1920, 1080);
 	m_graphicsEngine->Render();
+
+	UUID newUUid;
+	MapEntity entity;
+
+	UuidCreate(&newUUid);
+
+	entity.SetName(wxS("Unnammed"));
+	entity.SetUuid(newUUid);
+
+	std::vector<MapEntity> list;
+	list.push_back(std::move(entity));
+	m_model.SetEntityList(std::move(list));
+
 	return true;
 }
 

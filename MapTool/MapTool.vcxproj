@@ -149,13 +149,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui.h" />
+    <ClInclude Include="MapEntity.h" />
     <ClInclude Include="MapTool.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gui.cpp" />
+    <ClCompile Include="MapEntity.cpp" />
     <ClCompile Include="MapTool.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
