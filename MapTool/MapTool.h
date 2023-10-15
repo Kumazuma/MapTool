@@ -1,20 +1,17 @@
 #pragma once
 
 #include <wx/wx.h>
-#include <wrl.h>
-#include "GraphicsEngine.h"
 #include "Model.h"
-#include "gui.h"
 
+class View;
 class MapToolApp: public wxApp
 {
 public:
 	bool OnInit() override;
 	int OnExit() override;
-
+	Model& GetModel();
 private:
-	MainFrame* m_pMainFrame;
-	Microsoft::WRL::ComPtr<IGraphicsEngine> m_graphicsEngine;
+	View* m_pView;
 	Model m_model;
 };
 

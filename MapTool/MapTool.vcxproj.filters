@@ -30,6 +30,12 @@
     <ClInclude Include="View.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="UuidClientData.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Float3PGProperty.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MapTool.cpp">
@@ -45,6 +51,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="View.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UuidClientData.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Float3PGProperty.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

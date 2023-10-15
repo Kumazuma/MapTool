@@ -356,7 +356,7 @@
                             <property name="font"></property>
                             <property name="gripper">0</property>
                             <property name="hidden">0</property>
-                            <property name="id">wxID_ANY</property>
+                            <property name="id">ID_MAP_EDITOR_ENTITY_LIST</property>
                             <property name="max_size"></property>
                             <property name="maximize_button">0</property>
                             <property name="maximum_size"></property>
@@ -529,7 +529,7 @@
                             <property name="font"></property>
                             <property name="gripper">0</property>
                             <property name="hidden">0</property>
-                            <property name="id">wxID_ANY</property>
+                            <property name="id">ID_MAP_EDITOR_PROP_GRID</property>
                             <property name="include_advanced">1</property>
                             <property name="max_size"></property>
                             <property name="maximize_button">0</property>
@@ -555,6 +555,12 @@
                             <property name="window_extra_style"></property>
                             <property name="window_name"></property>
                             <property name="window_style"></property>
+                            <object class="propGridPage" expanded="1">
+                                <property name="bitmap"></property>
+                                <property name="label">Page</property>
+                                <property name="name">m_propertyGridPage1</property>
+                                <property name="permission">protected</property>
+                            </object>
                         </object>
                     </object>
                 </object>

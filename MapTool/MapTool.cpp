@@ -1,4 +1,5 @@
 #include "MapTool.h"
+#include "View.h"
 #include <rpc.h>
 
 bool MapToolApp::OnInit()
@@ -7,14 +8,7 @@ bool MapToolApp::OnInit()
 	{
 		return false;
 	}
-
-	m_pMainFrame = new MainFrame(nullptr, wxID_ANY, wxS("MapTool"));
-	m_pMainFrame->Show();
-	auto pPanel = wxWindow::FindWindowById(ID_PANEL_VIEW, m_pMainFrame);
-	CreateGraphicsEngine(&m_graphicsEngine);
-	m_graphicsEngine->CreateSwapChain(pPanel->GetHWND(), 1920, 1080);
-	m_graphicsEngine->Render();
-
+	
 	UUID newUUid;
 	MapEntity entity;
 
@@ -27,12 +21,22 @@ bool MapToolApp::OnInit()
 	list.push_back(std::move(entity));
 	m_model.SetEntityList(std::move(list));
 
+	m_pView = new View();
+
+	m_pView->Show();
+
 	return true;
 }
 
 int MapToolApp::OnExit()
 {
+	delete m_pView;
 	return wxApp::OnExit();
+}
+
+Model& MapToolApp::GetModel()
+{
+	return m_model;
 }
 
 wxIMPLEMENT_APP(MapToolApp);

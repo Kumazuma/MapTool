@@ -17,7 +17,7 @@ public:
 	void SetPosition(const DirectX::XMFLOAT3& val);
 	void SetRotation(const DirectX::XMFLOAT3& val);
 	void SetScale(float val);
-
+	bool operator == (const UUID& uuid) const;
 private:
 	UUID m_uuid;
 	wxString m_name;

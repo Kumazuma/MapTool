@@ -57,3 +57,8 @@ void MapEntity::SetScale(float val)
 {
 	m_scale = val;
 }
+
+bool MapEntity::operator==(const UUID& uuid) const
+{
+	return m_uuid == uuid;
+}

@@ -52,7 +52,7 @@ MainPanel::MainPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos, const
 	wxBoxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );
 
-	m_listBox1 = new wxListBox( m_panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
+	m_listBox1 = new wxListBox( m_panel1, ID_MAP_EDITOR_ENTITY_LIST, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
 	bSizer2->Add( m_listBox1, 1, wxALL|wxEXPAND, 5 );
 
 
@@ -68,8 +68,10 @@ MainPanel::MainPanel( wxWindow* parent, wxWindowID id, const wxPoint& pos, const
 	wxBoxSizer* bSizer1;
 	bSizer1 = new wxBoxSizer( wxVERTICAL );
 
-	m_propertyGridManager1 = new wxPropertyGridManager(m_panel3, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxPGMAN_DEFAULT_STYLE);
+	m_propertyGridManager1 = new wxPropertyGridManager(m_panel3, ID_MAP_EDITOR_PROP_GRID, wxDefaultPosition, wxDefaultSize, wxPGMAN_DEFAULT_STYLE);
 	m_propertyGridManager1->SetExtraStyle( wxPG_EX_MODE_BUTTONS );
+
+	m_propertyGridPage1 = m_propertyGridManager1->AddPage( wxT("Page"), wxNullBitmap );
 	bSizer1->Add( m_propertyGridManager1, 1, wxALL|wxEXPAND, 5 );
 
 

@@ -35,9 +35,11 @@ class MainPanel;
 
 #define ID_IMPORT_FILE 1000
 #define ID_PANEL_LEFT 1001
-#define ID_PANEL_BOTTOM 1002
-#define ID_PANEL_RIGHT 1003
-#define ID_PANEL_VIEW 1004
+#define ID_MAP_EDITOR_ENTITY_LIST 1002
+#define ID_PANEL_BOTTOM 1003
+#define ID_PANEL_RIGHT 1004
+#define ID_MAP_EDITOR_PROP_GRID 1005
+#define ID_PANEL_VIEW 1006
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class MainFrame
@@ -75,6 +77,7 @@ class MainPanel : public wxPanel
 		wxPanel* m_panel2;
 		wxPanel* m_panel3;
 		wxPropertyGridManager* m_propertyGridManager1;
+		wxPropertyGridPage* m_propertyGridPage1;
 		wxPanel* m_panel4;
 
 	public:

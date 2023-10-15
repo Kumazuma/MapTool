@@ -148,17 +148,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Float3PGProperty.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="MapEntity.h" />
     <ClInclude Include="MapTool.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="UuidClientData.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Float3PGProperty.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="MapEntity.cpp" />
     <ClCompile Include="MapTool.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="UuidClientData.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
