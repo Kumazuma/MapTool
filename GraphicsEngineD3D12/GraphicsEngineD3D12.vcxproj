@@ -154,6 +154,7 @@ DEL $(SolutionDir)include\framework.h</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AssetManagerD3D12.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="GraphicsEngineD3D12.h" />
@@ -161,6 +162,7 @@ DEL $(SolutionDir)include\framework.h</Command>
     <ClInclude Include="StaticMeshRenderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssetManagerD3D12.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="GraphicsEngineD3D12.cpp" />

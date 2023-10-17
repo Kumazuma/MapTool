@@ -13,7 +13,7 @@ public:
 	HRESULT CreateSwapChain(HWND hWnd, UINT width, UINT height) override;
 	HRESULT GetAssetManager(IAssetManager** ppAssetManager) override;
 	HRESULT Render() override;
-	HRESULT CreateStaticMeshRenderer(IStaticMeshRenderer** ppMeshRenderer) override;
+	HRESULT CreateStaticMeshRenderer(IMeshRenderer** ppMeshRenderer) override;
 
 private:
 	HRESULT InitRenderTargetView(UINT width, UINT height);

@@ -205,7 +205,7 @@ HRESULT GraphicsEngineD3D12::Render()
 	return hr;
 }
 
-HRESULT GraphicsEngineD3D12::CreateStaticMeshRenderer(IStaticMeshRenderer** ppMeshRenderer)
+HRESULT GraphicsEngineD3D12::CreateStaticMeshRenderer(IMeshRenderer** ppMeshRenderer)
 {
 	return E_NOTIMPL;
 }
