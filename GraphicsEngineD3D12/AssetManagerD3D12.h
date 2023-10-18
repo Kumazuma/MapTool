@@ -46,8 +46,9 @@ public:
 	STDMETHOD(QueryInterface)(REFIID riid, /* [iid_is][out] */ _COM_Outptr_ void __RPC_FAR *__RPC_FAR *ppvObject) override;
 	STDMETHOD(LoadMeshFromFile)(/* [in] */ const WCHAR *meshFilePath, /* [out] */ IMesh **ppMesh) override;
 	STDMETHOD(LoadTextureFromFile)(/* [in] */ const WCHAR *meshFilePath, /* [out] */ ITexture **ppTexture) override;
-
+	STDMETHOD(Dispose)();
 private:
+	std::atomic_bool m_isFinalized;
 	std::atomic_ulong m_refCount;
 	ComPtr<ID3D12Device> m_device;
 	GpuMemoryNode* m_pUsedMemory;
